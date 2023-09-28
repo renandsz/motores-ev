@@ -12,15 +12,16 @@ public class Player : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
         TryGetComponent(out rb);
     }
-    private void OnTriggerEnter(Collider collision){
+
+    private void OnCollisionEnter(Collision collision){
         if(!noChao && collision.gameObject.tag == "Chao"){
             noChao = true;
         }
     }
+
     void Update()
     {
         float h = Input.GetAxis("Horizontal"); // -1 esquerda, 0 nada, 1 direita
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
         Vector3 direcao = new Vector3(h, 0, v);
         rb.AddForce(direcao * velocidade); //movimentação
 
-        if(Input.GetKeyDown(KeyCode.Space) && noChao){
+        if(noChao && Input.GetKeyDown(KeyCode.Space)){
             rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
             noChao = false;
         }
