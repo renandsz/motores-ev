@@ -16,8 +16,10 @@ public class Player : MonoBehaviour
         
         TryGetComponent(out rb);
     }
-    private void OnTriggerEnter(Collider other){
-        
+    private void OnTriggerEnter(Collider collision){
+        if(!noChao && collision.gameObject.tag == "Chao"){
+            noChao = true;
+        }
     }
     void Update()
     {
@@ -27,8 +29,9 @@ public class Player : MonoBehaviour
         Vector3 direcao = new Vector3(h, 0, v);
         rb.AddForce(direcao * velocidade); //movimentação
 
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) && noChao){
             rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
+            noChao = false;
         }
 
         if(transform.position.y <= -10){
