@@ -1,0 +1,23 @@
+using UnityEngine;
+
+namespace Yas.Scripts
+{
+    public class CameraFollow : MonoBehaviour
+    {
+        private Transform alvo;
+    
+        public Vector3 offset;
+        // Start is called before the first frame update
+        void Start()
+        {
+            alvo = GameObject.FindWithTag("Player").transform;
+            offset = alvo.position - transform.position;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.position = alvo.position - offset;
+        }
+    }
+}
